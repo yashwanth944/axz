@@ -33,13 +33,13 @@ graph TD
     D --> F
     E --> F
     
-    subgraph "Core Services"
+    subgraph core[Core Services]
         C
         D
         E
     end
     
-    subgraph "Data Layer"
+    subgraph data[Data Layer]
         F
     end
 ```
@@ -139,37 +139,37 @@ flowchart LR
     classDef observability fill:#fff7e6,stroke:#fa8c16,stroke-width:2px,color:#fa8c16
     classDef scale fill:#fff0f6,stroke:#eb2f96,stroke-width:2px,color:#eb2f96
     
-    subgraph "Stage 1: Foundation"
+    subgraph stage1[Foundation]
         F1(Fix DB Connections):::foundation
         F2(Standardize Auth Flow):::foundation
         F3(Resolve JWT Issues):::foundation
         F4(HTTPS & Security Headers):::foundation
     end
     
-    subgraph "Stage 2: Extensions"
+    subgraph stage2[Extensions]
         E1(API Versioning):::extensions
         E2(Rate Limiting):::extensions
         E3(Request Validation):::extensions
         E4(API Documentation):::extensions
     end
     
-    subgraph "Stage 3: Observability"
+    subgraph stage3[Observability]
         O1(Log Aggregation):::observability
         O2(Request Tracing):::observability
         O3(Performance Metrics):::observability
         O4(Alerting System):::observability
     end
     
-    subgraph "Stage 4: Scale"
+    subgraph stage4[Scale]
         S1(Caching Strategy):::scale
         S2(Load Balancing):::scale
         S3(Circuit Breaking):::scale
         S4(Service Mesh Integration):::scale
     end
     
-    Stage 1: Foundation --> Stage 2: Extensions
-    Stage 2: Extensions --> Stage 3: Observability
-    Stage 3: Observability --> Stage 4: Scale
+    stage1 --> stage2
+    stage2 --> stage3
+    stage3 --> stage4
 ```
 
 <div align="center" style="margin-top: 30px; margin-bottom: 30px;">
@@ -222,7 +222,7 @@ This API Gateway is envisioned as the **central nervous system** for a modern mi
 
 ```mermaid
 graph LR
-    subgraph "Future State"
+    subgraph future[Future State]
         A[Client Apps] --> B(API Gateway)
         B -- Authenticate/Authorize --> C{Security Core}
         B -- Route & Load Balance --> D[Service Discovery]
@@ -287,10 +287,6 @@ go run main.go
 
 ```mermaid
 sequenceDiagram
-    participant Client
-    participant API
-    participant DB
-    
     Client->>API: POST /register
     API->>DB: Create User
     DB-->>API: User Created
@@ -306,10 +302,6 @@ sequenceDiagram
 
 ```mermaid
 sequenceDiagram
-    participant Client
-    participant API
-    participant DB
-    
     Client->>API: GET /api/profile
     API->>API: Validate JWT
     API->>DB: Fetch User Data

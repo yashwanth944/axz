@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: axz
+      POSTGRES_PASSWORD: axz123
+      POSTGRES_DB: axz
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres_data:/var/lib/postgresql/data
+
+  consul:
+    image: hashicorp/consul:1.15
+    ports:
+      - "8500:8500"
+    command: agent -dev -client=0.0.0.0
+
+  vault:
+    image: hashicorp/vault:1.13
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: root
+    cap_add:
+      - IPC_LOCK
+
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: axz
+      RABBITMQ_DEFAULT_PASS: axz123
+
+volumes:
+  postgres_data: 
